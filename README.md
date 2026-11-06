@@ -172,3 +172,7 @@ https://github.com/insiida/insiida-home-assistant/blob/main/blueprints/automatio
 ## 问题反馈
 
 请在 [Issues](https://github.com/insiida/insiida-home-assistant/issues) 里提交，附上 HA 版本、设备型号和问题描述。
+
+## 许可证
+
+本插件以 [Apache License 2.0](LICENSE) 开源。
