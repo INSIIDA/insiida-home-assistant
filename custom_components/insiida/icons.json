@@ -1,0 +1,36 @@
+{
+  "entity": {
+    "sensor": {
+      "signal_quality": {
+        "default": "mdi:signal-cellular-3",
+        "state": {
+          "excellent": "mdi:signal-cellular-3",
+          "good": "mdi:signal-cellular-2",
+          "fair": "mdi:signal-cellular-1",
+          "poor": "mdi:signal-cellular-outline"
+        }
+      },
+      "signal": {
+        "default": "mdi:signal"
+      },
+      "network_role": {
+        "default": "mdi:lan",
+        "state": {
+          "unspecified": "mdi:help-network-outline",
+          "unassigned": "mdi:lan-disconnect",
+          "sleepy_end_device": "mdi:leaf",
+          "end_device": "mdi:devices",
+          "reed": "mdi:router-wireless-off",
+          "router": "mdi:router-wireless",
+          "leader": "mdi:star-circle"
+        }
+      },
+      "reboot_count": {
+        "default": "mdi:restart"
+      },
+      "last_boot": {
+        "default": "mdi:clock-start"
+      }
+    }
+  }
+}

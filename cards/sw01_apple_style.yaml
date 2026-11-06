@@ -1,0 +1,114 @@
+# INSIIDA SW01 推荐卡片：苹果“家庭”风格
+# 需要先通过 HACS 安装 button-card。
+# 用法：仪表盘“编辑 → 添加卡片 → 手动”，粘贴其中一张（从 type 那一行开始），
+# 再把 light.sd_sw01 / event.sd_sw01_an_niu / script.sw01_up_key_single 换成你自己的实体。
+# 卡片底色是半透明的，配深色或带壁纸的主题效果最好。
+# 2026-11-06 在 HA 2026.3.1 上验证。
+
+# ---------- 卡片 1：开关（点一下开或关，长按看详情） ----------
+type: custom:button-card
+entity: light.sd_sw01
+name: SW01 开关
+icon: mdi:lightbulb
+show_icon: true
+show_name: true
+show_state: true
+tap_action:
+  action: toggle
+  haptic: light
+hold_action:
+  action: more-info
+grid_options:
+  columns: 4
+  rows: 2
+styles:
+  card:
+    - border-radius: 22px
+    - padding: 14px 14px 12px
+    - height: 118px
+    - box-shadow: none !important
+    - border: none !important
+    - background: rgba(30,30,32,0.32) !important
+    - backdrop-filter: blur(24px)
+  grid:
+    - grid-template-areas: '"i" "n" "s"'
+    - grid-template-columns: 1fr
+    - grid-template-rows: 1fr min-content min-content
+  img_cell:
+    - justify-content: flex-start
+    - align-items: flex-start
+  icon:
+    - width: 32px
+    - height: 32px
+    - color: rgba(255,255,255,0.85)
+  name:
+    - justify-self: start
+    - font-size: 15px
+    - font-weight: "600"
+    - color: "#ffffff"
+  state:
+    - justify-self: start
+    - font-size: 13px
+    - color: rgba(255,255,255,0.75)
+state:
+  - value: "on"
+    styles:
+      card:
+        - background: rgba(255,255,255,0.96) !important
+      icon:
+        - color: "#FFCC00"
+      name:
+        - color: "#1c1c1e"
+      state:
+        - color: "#6c6c70"
+
+# ---------- 卡片 2：场景键（点一下运行脚本，长按看按键记录） ----------
+# 另起一张卡片时，把下面这段单独粘贴（不要和上面的混在一张里）。
+# type: custom:button-card
+# entity: event.sd_sw01_an_niu
+# name: 上键
+# icon: mdi:gesture-tap-button
+# show_icon: true
+# show_name: true
+# show_state: false
+# show_last_changed: true
+# tap_action:
+#   action: perform-action
+#   perform_action: script.turn_on
+#   target:
+#     entity_id: script.sw01_up_key_single
+#   haptic: light
+# hold_action:
+#   action: more-info
+# grid_options:
+#   columns: 4
+#   rows: 2
+# styles:
+#   card:
+#     - border-radius: 22px
+#     - padding: 14px 14px 12px
+#     - height: 118px
+#     - box-shadow: none !important
+#     - border: none !important
+#     - background: rgba(30,30,32,0.32) !important
+#     - backdrop-filter: blur(24px)
+#   grid:
+#     - grid-template-areas: '"i" "n" "l"'
+#     - grid-template-columns: 1fr
+#     - grid-template-rows: 1fr min-content min-content
+#   img_cell:
+#     - justify-content: flex-start
+#     - align-items: flex-start
+#   icon:
+#     - width: 32px
+#     - height: 32px
+#     - color: rgba(255,255,255,0.85)
+#   name:
+#     - justify-self: start
+#     - font-size: 15px
+#     - font-weight: "600"
+#     - color: "#ffffff"
+#   label:
+#     - justify-self: start
+#     - font-size: 13px
+#     - color: rgba(255,255,255,0.75)

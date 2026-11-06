@@ -1,0 +1,77 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "INSIIDA 快速设置",
+        "description": "找到这些 INSIIDA 设备：{devices}。\n\n添加后，每个设备会多出信号强度、网络角色、重启次数、上次启动时间。\n要设置场景键，添加完成后在本集成里点“配置”。"
+      }
+    },
+    "abort": {
+      "matter_not_ready": "没有找到正在运行的 Matter。请先在“设备与服务”里添加 Matter，并把 INSIIDA 设备加进去。",
+      "no_devices": "Matter 里还没有 INSIIDA 设备。请先把开关或传感器加进 HA，再回来添加本集成。",
+      "single_instance_allowed": "INSIIDA 已经添加过了。要改设置，请在本集成里点“配置”。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "设置场景键",
+        "description": "选择要设置的场景键。\n只有在 INSIIDA App 的“按键用法”里设为“场景”的拨杆，才会出现在这里。",
+        "data": {
+          "key": "场景键"
+        }
+      },
+      "key": {
+        "title": "{key} 要做什么",
+        "description": "不需要的按法留空即可。全部留空等于取消这个键的设置。\n单击会慢半拍（约半秒），因为开关要先确认你不是在双击。\n注意：如果你已经用蓝图或自动化给这个键设了动作，两边会同时执行。",
+        "data": {
+          "single_lights": "单击：开关这些灯",
+          "double_targets": "双击：启动这些场景",
+          "long_targets": "长按：启动这些场景"
+        },
+        "data_description": {
+          "single_lights": "选几盏灯时：有一盏开着就全部关，全都关着就全部开。",
+          "double_targets": "也可以选脚本。",
+          "long_targets": "也可以选脚本。"
+        }
+      }
+    },
+    "abort": {
+      "no_scene_keys": "没有找到场景键。请先在 INSIIDA App 的“按键用法”里把拨杆设为“场景”。"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "signal_quality": {
+        "name": "信号质量",
+        "state": {
+          "excellent": "很好",
+          "good": "良好",
+          "fair": "一般",
+          "poor": "差"
+        }
+      },
+      "signal": {
+        "name": "信号强度"
+      },
+      "network_role": {
+        "name": "网络角色",
+        "state": {
+          "unspecified": "未知",
+          "unassigned": "未加入",
+          "sleepy_end_device": "省电终端",
+          "end_device": "终端",
+          "reed": "备用路由",
+          "router": "路由",
+          "leader": "主路由"
+        }
+      },
+      "reboot_count": {
+        "name": "重启次数"
+      },
+      "last_boot": {
+        "name": "上次启动时间"
+      }
+    }
+  }
+}

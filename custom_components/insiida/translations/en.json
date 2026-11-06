@@ -1,0 +1,77 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "INSIIDA quick setup",
+        "description": "Found these INSIIDA devices: {devices}.\n\nEach device gets signal strength, network role, reboot count and last boot sensors.\nTo set up scene keys, press \"Configure\" on this integration after adding it."
+      }
+    },
+    "abort": {
+      "matter_not_ready": "Matter is not running. Add the Matter integration and your INSIIDA devices first.",
+      "no_devices": "No INSIIDA devices in Matter yet. Add your switch or sensor to Home Assistant first.",
+      "single_instance_allowed": "INSIIDA is already added. Press \"Configure\" on it to change settings."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Scene keys",
+        "description": "Choose a scene key. Only rockers set to \"Scene\" in the INSIIDA app are listed.",
+        "data": {
+          "key": "Scene key"
+        }
+      },
+      "key": {
+        "title": "What should {key} do",
+        "description": "Leave unused presses empty. Leaving everything empty removes this key's setup.\nA single press acts about half a second late while the switch checks for a double press.\nIf a blueprint or automation already uses this key, both will run.",
+        "data": {
+          "single_lights": "Single press: toggle these lights",
+          "double_targets": "Double press: start these scenes",
+          "long_targets": "Long press: start these scenes"
+        },
+        "data_description": {
+          "single_lights": "With several lights: if any is on, all turn off; if all are off, all turn on.",
+          "double_targets": "Scripts work too.",
+          "long_targets": "Scripts work too."
+        }
+      }
+    },
+    "abort": {
+      "no_scene_keys": "No scene keys found. Set a rocker to \"Scene\" in the INSIIDA app first."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "signal_quality": {
+        "name": "Signal quality",
+        "state": {
+          "excellent": "Excellent",
+          "good": "Good",
+          "fair": "Fair",
+          "poor": "Poor"
+        }
+      },
+      "signal": {
+        "name": "Signal strength"
+      },
+      "network_role": {
+        "name": "Network role",
+        "state": {
+          "unspecified": "Unknown",
+          "unassigned": "Not joined",
+          "sleepy_end_device": "Sleepy end device",
+          "end_device": "End device",
+          "reed": "Standby router",
+          "router": "Router",
+          "leader": "Leader"
+        }
+      },
+      "reboot_count": {
+        "name": "Reboot count"
+      },
+      "last_boot": {
+        "name": "Last boot"
+      }
+    }
+  }
+}

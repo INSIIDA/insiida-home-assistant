@@ -1,0 +1,10 @@
+# 示例脚本：“上键单击要做的事”。墙上按键（经蓝图自动化）和仪表盘卡片都运行它。
+# 用法：“设置 → 自动化与场景 → 脚本 → 新建脚本 → 右上角菜单 → 以 YAML 编辑”，
+# 粘贴后把 light.sd_sw01 换成你想控制的设备，保存时脚本 ID 填 sw01_up_key_single。
+alias: SW01 上键单击动作
+icon: mdi:gesture-tap-button
+mode: single
+sequence:
+  - action: light.toggle
+    target:
+      entity_id: light.sd_sw01

@@ -1,0 +1,22 @@
+# INSIIDA SW01 卡片：只用 HA 自带的 tile 卡片，不用装插件。
+# 用法：仪表盘“编辑 → 添加卡片 → 手动”，各粘贴一张，换成你自己的实体名。
+
+# ---------- 卡片 1：开关 ----------
+type: tile
+entity: light.sd_sw01
+name: SW01 开关
+tap_action:
+  action: toggle
+
+# ---------- 卡片 2：场景键（另起一张卡片粘贴） ----------
+# type: tile
+# entity: event.sd_sw01_an_niu
+# name: 上键
+# icon: mdi:gesture-tap-button
+# tap_action:
+#   action: perform-action
+#   perform_action: script.turn_on
+#   target:
+#     entity_id: script.sw01_up_key_single
+# hold_action:
+#   action: more-info

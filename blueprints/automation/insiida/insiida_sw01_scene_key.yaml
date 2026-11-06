@@ -1,0 +1,63 @@
+blueprint:
+  name: INSIIDA SW01 场景键
+  description: >
+    为 INSIIDA SW01 智能开关的场景键设置单击、双击、长按要做的事。
+
+    使用前，请先在 INSIIDA App 的“按键用法”里把这个拨杆设为“场景”。
+    一个拨杆建一条自动化；两个拨杆都设成场景键时，各建一条。
+
+    单击要等开关确认不是双击后才触发，会有约半秒延迟，这是正常的。
+  domain: automation
+  author: INSIIDA
+  homeassistant:
+    min_version: 2024.10.0
+  input:
+    button:
+      name: 场景键
+      description: 选择 SW01 的场景键（显示为“按钮”）。
+      selector:
+        entity:
+          filter:
+            - integration: matter
+              domain: event
+              device_class: button
+    single_press:
+      name: 单击时
+      description: 按一下要做的事，不需要可以留空。
+      default: []
+      selector:
+        action: {}
+    double_press:
+      name: 双击时
+      description: 快速按两下要做的事，不需要可以留空。
+      default: []
+      selector:
+        action: {}
+    long_press:
+      name: 长按时
+      description: 按住不放时要做的事，不需要可以留空。
+      default: []
+      selector:
+        action: {}
+
+mode: queued
+max: 5
+
+triggers:
+  - trigger: state
+    entity_id: !input button
+    not_from:
+      - unavailable
+      - unknown
+
+variables:
+  press: "{{ trigger.to_state.attributes.event_type if trigger.to_state else '' }}"
+
+actions:
+  - choose:
+      - conditions: "{{ press == 'multi_press_1' }}"
+        sequence: !input single_press
+      - conditions: "{{ press == 'multi_press_2' }}"
+        sequence: !input double_press
+      - conditions: "{{ press == 'long_press' }}"
+        sequence: !input long_press
