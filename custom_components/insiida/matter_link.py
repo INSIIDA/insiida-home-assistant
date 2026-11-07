@@ -45,7 +45,7 @@ class SceneKey:
 
     entity_id: str
     device: InsiidaDevice
-    position: str  # "up", "down" or "ep<N>"
+    position: str  # "up", "down", "scene" or "scene<N>"
 
 
 def get_matter_client(hass: HomeAssistant) -> Any | None:
@@ -95,6 +95,7 @@ def find_scene_keys(hass: HomeAssistant) -> list[SceneKey]:
     for device in find_insiida_devices(hass):
         if device.model != SW01_MODEL:
             continue
+        device_keys: list[tuple[int, str]] = []
         for entry in er.async_entries_for_device(ent_reg, device.device_id):
             if entry.platform != MATTER_DOMAIN or entry.domain != "event":
                 continue
@@ -102,14 +103,27 @@ def find_scene_keys(hass: HomeAssistant) -> list[SceneKey]:
             if not match:
                 continue
             endpoint = int(match.group(1))
+            device_keys.append((endpoint, entry.entity_id))
+        positions = key_positions([ep for ep, _ in device_keys])
+        for endpoint, entity_id in sorted(device_keys):
             keys.append(
-                SceneKey(
-                    entity_id=entry.entity_id,
-                    device=device,
-                    position=SW01_KEY_ENDPOINTS.get(endpoint, f"ep{endpoint}"),
-                )
+                SceneKey(entity_id=entity_id, device=device, position=positions[endpoint])
             )
     return keys
+
+
+def key_positions(endpoints: list[int]) -> dict[int, str]:
+    """Name the scene keys of one switch by endpoint.
+
+    Endpoints 2 / 3 are the upper / lower key. Any other key (for example the
+    single detached key of earlier firmware, on endpoint 4) is a "scene" key,
+    numbered only when one switch has several of them.
+    """
+    other = sorted(ep for ep in set(endpoints) if ep not in SW01_KEY_ENDPOINTS)
+    result = {ep: SW01_KEY_ENDPOINTS[ep] for ep in endpoints if ep in SW01_KEY_ENDPOINTS}
+    for index, ep in enumerate(other, start=1):
+        result[ep] = "scene" if len(other) == 1 else f"scene{index}"
+    return result
 
 
 def read_cached(client: Any, node_id: int, path: str) -> Any:

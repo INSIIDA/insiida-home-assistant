@@ -32,16 +32,26 @@ CONF_KEY = "key"
 # translation files). Chinese for zh*, English otherwise.
 LABELS = {
     "zh": {
-        "up": "上键", "down": "下键", "unset": "未设置", "set": "已设置",
+        "up": "上键", "down": "下键", "scene": "场景键", "unset": "未设置", "set": "已设置",
         OPT_SINGLE_LIGHTS: "单击", OPT_DOUBLE_TARGETS: "双击", OPT_LONG_TARGETS: "长按",
         "sep": "、",
     },
     "en": {
-        "up": "upper key", "down": "lower key", "unset": "not set", "set": "set",
+        "up": "upper key", "down": "lower key", "scene": "scene key", "unset": "not set",
+        "set": "set",
         OPT_SINGLE_LIGHTS: "single", OPT_DOUBLE_TARGETS: "double", OPT_LONG_TARGETS: "long",
         "sep": ", ",
     },
 }
+
+
+def _position_label(labels: dict[str, str], position: str) -> str:
+    """"up" -> 上键, "scene" -> 场景键, "scene2" -> 场景键 2."""
+    if position in labels:
+        return labels[position]
+    if position.startswith("scene") and position[5:].isdigit():
+        return f"{labels['scene']} {position[5:]}"
+    return position
 
 
 class InsiidaConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -88,7 +98,7 @@ class InsiidaOptionsFlow(OptionsFlow):
         for key in find_scene_keys(self.hass):
             if key.entity_id != entity_id:
                 continue
-            label = f"{key.device.name} {t.get(key.position, key.position)}"
+            label = f"{key.device.name} {_position_label(t, key.position)}"
             if not with_status:
                 return label
             settings = self.config_entry.options.get(OPT_KEYS, {}).get(entity_id, {})
