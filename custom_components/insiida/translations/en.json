@@ -16,7 +16,7 @@
     "step": {
       "init": {
         "title": "Scene keys",
-        "description": "Choose a scene key. Only rockers set to \"Scene\" in the INSIIDA app are listed.",
+        "description": "Choose a scene key. Only switches that were detached on the switch before being added to HA are listed.",
         "data": {
           "key": "Scene key"
         }
@@ -37,7 +37,7 @@
       }
     },
     "abort": {
-      "no_scene_keys": "No scene keys found. Set a rocker to \"Scene\" in the INSIIDA app first."
+      "no_scene_keys": "No scene keys found. Detach the key on the switch first, then add the switch to HA. If it is already added, delete it in HA, detach, and add it again."
     }
   },
   "entity": {

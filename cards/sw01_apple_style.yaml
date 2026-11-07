@@ -1,7 +1,7 @@
 # INSIIDA SW01 推荐卡片：苹果“家庭”风格
 # 需要先通过 HACS 安装 button-card。
 # 用法：仪表盘“编辑 → 添加卡片 → 手动”，粘贴其中一张（从 type 那一行开始），
-# 再把 light.sd_sw01 / event.sd_sw01_an_niu / script.sw01_up_key_single 换成你自己的实体。
+# 再把 light.sd_sw01 / event.sd_sw01_an_niu / script.sw01_scene_key_single 换成你自己的实体。
 # 卡片底色是半透明的，配深色或带壁纸的主题效果最好。
 # 2026-11-06 在 HA 2026.3.1 上验证。
 
@@ -66,7 +66,7 @@ state:
 # 另起一张卡片时，把下面这段单独粘贴（不要和上面的混在一张里）。
 # type: custom:button-card
 # entity: event.sd_sw01_an_niu
-# name: 上键
+# name: 场景键
 # icon: mdi:gesture-tap-button
 # show_icon: true
 # show_name: true
@@ -76,7 +76,7 @@ state:
 #   action: perform-action
 #   perform_action: script.turn_on
 #   target:
-#     entity_id: script.sw01_up_key_single
+#     entity_id: script.sw01_scene_key_single
 #   haptic: light
 # hold_action:
 #   action: more-info

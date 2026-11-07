@@ -11,12 +11,12 @@ tap_action:
 # ---------- 卡片 2：场景键（另起一张卡片粘贴） ----------
 # type: tile
 # entity: event.sd_sw01_an_niu
-# name: 上键
+# name: 场景键
 # icon: mdi:gesture-tap-button
 # tap_action:
 #   action: perform-action
 #   perform_action: script.turn_on
 #   target:
-#     entity_id: script.sw01_up_key_single
+#     entity_id: script.sw01_scene_key_single
 # hold_action:
 #   action: more-info

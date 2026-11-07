@@ -115,8 +115,8 @@ def find_scene_keys(hass: HomeAssistant) -> list[SceneKey]:
 def key_positions(endpoints: list[int]) -> dict[int, str]:
     """Name the scene keys of one switch by endpoint.
 
-    Endpoints 2 / 3 are the upper / lower key. Any other key (for example the
-    single detached key of earlier firmware, on endpoint 4) is a "scene" key,
+    Endpoints 2 / 3 are named up / down. Any other key (for example the
+    single detached key on endpoint 4) is a "scene" key,
     numbered only when one switch has several of them.
     """
     other = sorted(ep for ep in set(endpoints) if ep not in SW01_KEY_ENDPOINTS)

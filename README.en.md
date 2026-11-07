@@ -33,9 +33,12 @@
 
 | Device | Light on/off | Scene keys | Diagnostics |
 |---|---|---|---|
-| SW01 smart switch | ✅ built into HA | ✅ | ✅ signal quality, signal strength, network role, reboot count, last boot |
-| SW01 smart switch (earlier firmware, e.g. device info shows firmware 3.1.1; one scene key) | ✅ built into HA | ✅ detach first, then add to HA — see below | ✅ same |
+| SW01 smart switch | ✅ built into HA | ✅ one scene key; detach it on the switch first, then add to HA — see below | ✅ signal quality, signal strength, network role, reboot count, last boot |
 | SS01 sensor | ✅ built into HA | — | ✅ same (the three signal items from firmware 1.0.1; earlier firmware has reboot count and last boot only) |
+
+## At a glance
+
+<img src="docs/images/flow_setup_en.svg" width="680" alt="SW01 setup flow: detach the key on the switch, add the switch to HA, then install the integration, add it and set up the scene key">
 
 ## Requirements
 
@@ -99,11 +102,9 @@ Signal quality, signal strength and network role need firmware support (SS01 fir
 
 ## Set up scene keys
 
-1. Give the switch a scene key first:
-   - New firmware: in the **INSIIDA app**, under "Key usage", set the rocker you want to use to **"Scene"**.
-   - Earlier firmware: detach the key on the switch first, then add the switch to HA — see "Switches with earlier firmware" below.
+1. Detach the key on the switch first, then add the switch to HA (the order matters — see "Detach first, then add to HA" below).
 2. In HA go to "Settings → Devices & services → INSIIDA" and press **"Configure"**.
-3. Pick a scene key (for example "SD-SW01 upper key") and press "Submit".
+3. Pick the scene key (listed as "SD-SW01 scene key") and press "Submit".
 4. Choose what you need:
    - **Single press**: which lights to toggle (with several lights: if any is on, all turn off; if all are off, all turn on);
    - **Double press**: which scenes or scripts to start;
@@ -112,15 +113,17 @@ Signal quality, signal strength and network role need firmware support (SS01 fir
 
 <!-- Screenshot: docs/images/options_key.png -->
 
-**Switches with earlier firmware: detach first, then add to HA**
+**Detach first, then add to HA**
 
-Switches with earlier firmware have a single scene key, listed as "SD-SW01 scene key". That key only appears after you **detach** it on the switch itself (detaching is done only on the switch; the app has no such setting), and HA only checks once — at the moment the switch is added:
+The SW01 scene key only appears after you **detach** it on the switch (detaching is done on the switch only), and HA only checks once — at the moment the switch is added:
 
 | What happened | Scene key in HA | What to do |
 |---|---|---|
 | Detached on the switch first, then added to HA | Present, works | Nothing (recommended) |
 | Added to HA first, detached later | Missing | Remove the switch in HA and add it again |
 | Un-detached after adding | Still listed, but pressing does nothing | Detach again and it works; to make it go away, remove and re-add the switch |
+
+<img src="docs/images/flow_fix_en.svg" width="680" alt="What to do when the scene key is not right in HA">
 
 Apple Home follows detach changes automatically; HA doesn't. So the two may show different things — that is normal.
 
@@ -183,8 +186,8 @@ How to use: on a dashboard, top right "Edit → Add card → Manual", paste, and
 - **INSIIDA isn't found under "Add integration"**: download it through HACS and restart HA first.
 - **INSIIDA isn't found in HACS**: until it is in the HACS default store, add the custom repository as in option 2, or use the option 1 button.
 - **Adding a switch keeps failing**: usually IPv6 is off in HA — see "Requirements".
-- **No scene keys under "Configure"**: for switches with new firmware, first set the rocker to "Scene" in the INSIIDA app's "Key usage". Switches with earlier firmware must be detached on the switch before being added to HA (if already added, remove and re-add).
-- **Pressing a scene key does nothing**: check the "Button" history on the HA device page for the press. If nothing arrives, check the rocker is in "Scene" mode; for switches with earlier firmware, check they are still detached.
+- **No scene keys under "Configure"**: the key must be detached on the switch before the switch is added to HA; if already added, remove and re-add it. See the chart above.
+- **Pressing a scene key does nothing**: check the "Button" history on the HA device page for the press. If nothing arrives, check the switch is still detached.
 - **Double presses count as two single presses**: press faster — see "Tips for pressing".
 - **One press runs twice**: the same key has actions in both the integration and a blueprint; remove one.
 
